@@ -13,10 +13,12 @@ const displayMenuBar = async () => {
         const menuBar = document.getElementById('menu-bar');
         const li = document.createElement('li');
         li.innerHTML = `
-            <a onclick="categoryId">${menu.category_name}</a>
+            <a onclick="loadCategory(category_id)">${menu.category_name}</a>
         `
         menuBar.appendChild(li)
+
     }
+
 }
 
 displayMenuBar();
@@ -74,9 +76,11 @@ const displayCategory = news => {
             </div>
         </div>
     </div>
-    
+
         `
         getCategoryId.appendChild(div);
+
     })
+
 }
 // displayCategory()
