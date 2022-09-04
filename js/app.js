@@ -94,7 +94,8 @@ const displayCategory = news => {
                     </span>
 
                     <div class="card-actions justify-end">
-                        <button class="btn btn-primary">View Detail</button>
+<label for="my-modal-3" class="btn btn-primary modal-button" onclick="loadModal('${theNews._id}')">Show Detail</label>
+                        
                     </div>
                 </div>
             </div>
@@ -107,6 +108,57 @@ const displayCategory = news => {
     })
     //stop loader 
     toggleSpinner(false)
+
+}
+
+const showModal = () => {
+
+}
+
+const loadModal = (news_id) => {
+    fetch(`https://openapi.programming-hero.com/api/news/${news_id}`)
+        .then(res => res.json())
+        .then(data => displayModal(data.data))
+}
+
+const displayModal = detail => {
+    // console.log(detail)
+    const modalBody = document.getElementById('modal-body');
+    detail.forEach(theNews => {
+        console.log(theNews)
+
+        const div = document.createElement('div')
+
+        div.innerHTML = `
+
+            <div class="card card-side bg-base-100 shadow-xl mb-10">
+            <figure><img src=${theNews.thumbnail_url} alt="Movie"></figure>
+            <div class="card-body">
+                <h2 class="card-title">${theNews.title}</h2>
+                <p>${theNews.details}</p>
+
+                <div class="flex space-x-28 inline-block align-baseline">
+                <div>
+                    <div class="avatar-group -space-x-6">
+                        <div class="avatar">
+                            <div class="w-12">
+                                <img src= ${theNews.author.img}>
+                            </div>
+                        </div>
+                    </div>
+                    <div>${theNews.author.name}</div>
+                </div>
+                        
+                </div>
+            </div>
+        </div>
+
+            `
+        modalBody.appendChild(div);
+
+
+    })
+
 
 }
 
