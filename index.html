@@ -113,9 +113,23 @@
 
 
     <main class="px-10">
-        <section>
-            <h1 class="text-2xl text-center m-3 hidden">No Data Found</h1>
+
+        <!-- no news found   -->
+
+        <div id="no-news" class="mt-3 hidden">
+            <h1 class="text-2xl text-center ">No News Found</h1>
+        </div>
+
+
+        <!-- spinner -->
+
+        <section id="loader" class="hidden">
+            <div class="flex justify-center">
+                <button class="btn btn-square loading"></button>
+            </div>
         </section>
+
+
 
         <!-- Use card  -->
         <section id="category" class="mt-5">

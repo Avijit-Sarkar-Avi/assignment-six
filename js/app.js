@@ -5,6 +5,9 @@ const loadMenuBar = () => {
 }
 
 const displayMenuBar = categories => {
+    //start loader
+    toggleSpinner(true);
+
     const menuBar = document.getElementById('menu-bar');
     categories.forEach(category => {
         // console.log(category)
@@ -16,6 +19,17 @@ const displayMenuBar = categories => {
     })
 }
 
+const toggleSpinner = isLoading => {
+    const loaderSection = document.getElementById('loader');
+    if (isLoading) {
+        loaderSection.classList.remove('hidden')
+    }
+    else {
+        loaderSection.classList.add('hidden')
+    }
+}
+
+
 const loadCategory = (category_id) => {
     fetch(`https://openapi.programming-hero.com/api/news/category/0${category_id}`)
         .then(res => res.json())
@@ -25,10 +39,23 @@ const loadCategory = (category_id) => {
 const displayCategory = news => {
     console.log(news)
 
-
-
     const getCategoryId = document.getElementById('category')
     getCategoryId.textContent = "";
+
+    // display found news 
+
+    const noNews = document.getElementById('no-news');
+    noNews.innerHTML = `
+        <h1 class="text-2xl text-center ">${news.length} News Found</h1>
+        `
+    if (news.length === 0) {
+        noNews.classList.remove('hidden')
+    }
+
+
+
+
+
     news.forEach(theNews => {
         console.log(theNews)
 
@@ -78,8 +105,8 @@ const displayCategory = news => {
 
 
     })
-
-
+    //stop loader 
+    toggleSpinner(false)
 
 }
 
