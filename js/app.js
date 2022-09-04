@@ -1,46 +1,39 @@
 const loadMenuBar = () => {
     fetch('https://openapi.programming-hero.com/api/news/categories')
         .then(res => res.json())
-        .then(data => displayMenuBar(data.data.news_category));
+        .then(data => displayMenuBar(data.data.news_category))
 }
-loadMenuBar()
 
-
-const displayMenuBar = (category, category_id) => {
-    // console.log(category)
-    category.forEach(navbar => {
-        // console.log(navbar)
-        const menuBar = document.getElementById('menu-bar');
+const displayMenuBar = categories => {
+    const menuBar = document.getElementById('menu-bar');
+    categories.forEach(category => {
+        // console.log(category)
         const li = document.createElement('li');
         li.innerHTML = `
-            <a onclick="(category_id)">${navbar.category_name}</a>
+            <a onclick="loadCategory(${category.category_id})">${category.category_name}</a>
         `
         menuBar.appendChild(li)
-
-
-        loadCategory(category_id)
     })
-
 }
 
-
-
-//Category
-
 const loadCategory = (category_id) => {
-    fetch(`https://openapi.programming-hero.com/api/news/category/${category_id}`)
+    fetch(`https://openapi.programming-hero.com/api/news/category/0${category_id}`)
         .then(res => res.json())
         .then(data => displayCategory(data.data))
 }
-loadCategory();
 
 const displayCategory = news => {
-    // console.log(news);
-    const getCategoryId = document.getElementById('catagory')
+    console.log(news)
+
+
+
+    const getCategoryId = document.getElementById('category')
+    getCategoryId.textContent = "";
     news.forEach(theNews => {
-        // console.log(theNews)
+        console.log(theNews)
 
         const div = document.createElement('div')
+
         div.innerHTML = `
 
             <div class="card card-side bg-base-100 shadow-xl mb-10">
@@ -54,12 +47,12 @@ const displayCategory = news => {
                     <div class="avatar-group -space-x-6">
                         <div class="avatar">
                             <div class="w-12">
-                                <img src= ${theNews.author.img}>                           
-                            </div>                      
-                        </div>                  
+                                <img src= ${theNews.author.img}>
+                            </div>
+                        </div>
                     </div>
                     <div>${theNews.author.name}</div>
-                </div>    
+                </div>
                     <span>
                         <i class="fa-solid fa-eye"></i>
                         <span>${theNews.total_view}</span>
@@ -83,12 +76,13 @@ const displayCategory = news => {
             `
         getCategoryId.appendChild(div);
 
+
     })
+
+
 
 }
 
-// displayCategory()
 
 
-
-
+loadMenuBar();
